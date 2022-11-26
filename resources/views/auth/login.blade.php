@@ -42,6 +42,11 @@
                 <x-jet-button class="ml-4">
                     {{ __('Log in') }}
                 </x-jet-button>
+
+                <a class="ml-4 underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('adminAuth@registerPage') }}">
+                    {{ __('or Register') }}
+                </a>
+                
             </div>
         </form>
     </x-jet-authentication-card>
