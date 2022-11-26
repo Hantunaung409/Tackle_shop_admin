@@ -1,9 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OverViewController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminListController;
 
-// will not allowed if user-role-user or have not authenticated user request to those routes
+// will not allowed if user-role-user or already authenticated user request to those routes
 Route::middleware(['admin_auth'])->group(function () {
  Route::redirect('/','loginPage');
  Route::get('loginPage',[AdminAuthController::class,'loginPage'])->name('adminAuth@loginPage');
@@ -11,5 +15,9 @@ Route::middleware(['admin_auth'])->group(function () {
 });
 
 Route::middleware(['auth',config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('adminAuth@dashboard');
+    Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('Auth@dashboard');
+    Route::get('category',[CategoryController::class,'categoryPage'])->name('Auth@categoryPage');
+    Route::get('post',[PostController::class,'postPage'])->name('Auth@postPage');
+    Route::get('overView',[OverViewController::class,'overViewPage'])->name('Auth@overViewPage');
+    Route::get('adminList',[AdminListController::class,'adminListPage'])->name('Auth@adminListPage');
 });

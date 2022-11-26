@@ -1,4 +1,4 @@
 @extends('mainLayout')
 @section('content')
-    this is welcome Dashboard
+    this is post index
 @endsection
