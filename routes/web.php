@@ -16,7 +16,9 @@ Route::middleware(['admin_auth'])->group(function () {
 
 Route::middleware(['auth',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('Auth@dashboard');
+    //category
     Route::get('category',[CategoryController::class,'categoryPage'])->name('Auth@categoryPage');
+    Route::post('category/create',[CategoryController::class,'create'])->name('Category@create');
     Route::get('post',[PostController::class,'postPage'])->name('Auth@postPage');
     Route::get('overView',[OverViewController::class,'overViewPage'])->name('Auth@overViewPage');
     Route::get('adminList',[AdminListController::class,'adminListPage'])->name('Auth@adminListPage');
