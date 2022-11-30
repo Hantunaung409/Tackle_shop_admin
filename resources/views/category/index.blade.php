@@ -23,10 +23,29 @@
                         <!-- end of add new category card -->
                     </div>
                     <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 ps-5 mt-5 mt-sm-0 mt-lg-0 mt-xl-0 mt-xxl-0">
+                        {{-- alert --}}
+                        @if (session('deleted'))
+                        {{-- <div class="col-6 offset-6"> --}}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong><i class="fa-solid fa-trash"></i>{{ session('deleted') }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        {{-- </div> --}}
+                        @endif
+                        @if (session('updated'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong><i class="fa-solid fa-check me-2"></i>{{ session('updated') }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+                        {{-- end alert --}}
                         <table class=" table table-striped shadow-sm rounded">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    {{-- <th>Id</th> --}}
+                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Note</th>
                                     <th></th>
@@ -34,16 +53,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <input type="hidden" name="currentPage" id="currentPage" value="{{ $category->currentpage() }}">
-                                <input type="hidden" name="perpage">
                                 @foreach ($category as $cat)
                                     <tr class="data">
-                                        <td>{{ $loop->index + 1 }}</td>
+                                        <input type="hidden" name="categoryId" value="{{ $cat->id }}" class="categoryId">
+                                        <td>{{ $cat->id }}</td>
+                                        {{-- <td>{{ $loop->index + 1 }}</td> --}}
                                         {{-- <td>{{ ($cat->currentpage() - 1) * $cat->perpage() + $loop->index + 1 }}</td> although, methods of pagination are not working in FOREACH (just an idea)--}}
                                         <td>{{ $cat->name }}</td>
                                         <td>{{ $cat->note }}</td>
-                                        <td><i class="fa-solid fa-pencil" title="Edit"></i></td>
-                                        <td><i class="fa-solid fa-trash-can text-danger" title="Delete"></i></</td>
+                                        <td><a href="{{ route('Category@editPage',$cat->id) }}"><i class="fa-solid fa-pencil" title="Edit"></i></a></td>
+                                        <td><i class="fa-solid fa-trash-can text-danger deleteBtn" title="Delete" style="cursor: pointer;"></i></</td>
                                     </tr>                                    
                                 @endforeach
 
@@ -56,4 +75,20 @@
         </div>
 @endsection
 @section('scriptSource')
+<script>
+  $(document).ready(function () {
+    $('.deleteBtn').click(function (){
+       $parentNode = $(this).parents('tr');
+       $categoryId = $parentNode.find('.categoryId').val();
+       
+       $.ajax({
+        type : 'get',
+        url : '/category/ajax/delete',
+        data : { 'categoryId' : $categoryId },
+        dataType : 'json' ,
+       })
+       window.location.href = "/category";
+    })
+  })
+</script>
 @endsection

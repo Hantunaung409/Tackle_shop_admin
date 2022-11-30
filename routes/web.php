@@ -19,6 +19,11 @@ Route::middleware(['auth',config('jetstream.auth_session'),'verified'])->group(f
     //category
     Route::get('category',[CategoryController::class,'categoryPage'])->name('Auth@categoryPage');
     Route::post('category/create',[CategoryController::class,'create'])->name('Category@create');
+    Route::get('category/ajax/delete',[CategoryController::class,'delete'])->name('Category@delete');
+    Route::get('category/edit/{id}',[CategoryController::class,'editPage'])->name('Category@editPage');
+    Route::post('category/update',[CategoryController::class,'update'])->name('Category@update');
+
+    
     Route::get('post',[PostController::class,'postPage'])->name('Auth@postPage');
     Route::get('overView',[OverViewController::class,'overViewPage'])->name('Auth@overViewPage');
     Route::get('adminList',[AdminListController::class,'adminListPage'])->name('Auth@adminListPage');
