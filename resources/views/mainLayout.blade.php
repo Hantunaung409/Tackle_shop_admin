@@ -64,8 +64,6 @@
                         class="fa-solid fa-bars"></i></button>
                 <!-- end of offcanvas button -->
             </div>
-            <div class="col">
-                <div class="row">
                     {{-- <!-- Search -->
                     <div class="col-6 offset-4 d-flex align-items-center">
                         <form action="">
@@ -78,14 +76,16 @@
                         </form>
                     </div>
                     <!-- end of Search --> --}}
-                    <div class="col-4 offset-4 my-auto fs-4">Tackle Shop</div>
-                    <div class="col-1 offset-3">
-                        <img src="" alt="" class=" my-1 shadow-sm img-thumbnail"
-                            style=" height: 40px; border-radius: 50%;">
+                    <div class="col-4 offset-4   my-auto fs-4">Tackle Shop</div>
+                    <div class="col-2 offset-1  col-sm">
+                       <a href="{{ route('account@infoPage') }}">
+                         @if ( Auth::user()->image == null )
+                            <img src="{{ asset('image/defaultUser/default_user_image.jpeg') }}" alt="" style="height: 30px;" class=" rounded-5 img-thumbnail shadow-sm object-cover my-2">
+                         @else
+                             <img src="{{ asset('storage/userImage/'.Auth::user()->image) }}" alt="" style="height: 30px;" class=" rounded-5 img-thumbnail shadow-sm object-cover my-2">
+                         @endif
+                       </a>
                     </div>
-                </div>
-
-            </div>
         </div>
         @yield('content')
     </div>

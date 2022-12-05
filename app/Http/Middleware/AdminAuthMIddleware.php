@@ -24,7 +24,7 @@ class AdminAuthMIddleware
             }
           else{
               if(Auth::user()->role == 'user'){
-            return view('wait'); //to the blade saying wait for an admin approval
+            return response()->view('wait'); //to the blade saying wait for an admin approval
             }
             return $next($request);
         }
