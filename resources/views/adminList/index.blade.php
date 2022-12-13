@@ -1,11 +1,12 @@
 @extends('mainLayout')
+@section('title','Admin List')
 @section('content')
    <div class="container ">
      <table class=" table table-striped mt-3 mt-sm-5 mt-md-5 mt-lg-5 mt-xl-5 mt-xxl-5 rounded">
         <thead>
             <tr>
-                <th>Name</th>
                 <th>Image</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Role</th>

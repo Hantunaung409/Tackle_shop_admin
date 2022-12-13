@@ -1,0 +1,27 @@
+.container-one{
+    margin:0;
+    padding: 0;
+    min-width: 560px;
+}
+.container-one .background {
+  
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-position: center;
+  position: relative;
+}
+
+.text-inside-image {
+    color: rgb(160, 151, 190);
+    font-size: 3vw;
+    font-weight: bolder;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 40px;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+}

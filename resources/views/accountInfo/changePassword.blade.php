@@ -1,4 +1,5 @@
 @extends('mainLayout')
+@section('title','Change Your Password')
 @section('content')
 <div class="container-fluid">
     <div class="card mt-3 mx-5">

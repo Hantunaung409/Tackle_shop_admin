@@ -1,4 +1,5 @@
 @extends('mainLayout')
+@section('title','Your Accout Info')
 @section('content')
     <div class="container-sm d-flex justify-content-center align-items-center">
         <div class="card mt-3">

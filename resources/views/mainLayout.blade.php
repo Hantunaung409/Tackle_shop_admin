@@ -13,82 +13,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
+    @yield('links')
+    <title>@yield('title')</title>
 </head>
-<style>
-    .active-nav {
-        color: blue;
-    }
-</style>
 <body>
-    <div class="container-fluid m-1">
-        <div class="row shadow-sm sticky-top bg-white">
-         {{-- offcanvas outside --}}
-            <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false"
-            tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-            <div class="offcanvas-header">
-                <a href="{{ route('Auth@dashboard') }}" class=" text-decoration-none {{ "dashboard" == request()->path() ? "active-nav" : "text-dark" }}"><h5 class="offcanvas-title" id="offcanvasScrollingLabel"><i class="fa-solid fa-house me-2"></i>Tackle Shop</h5></a>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body border-top">
-                <ul class=" list-unstyled list-group list-group-flush">
-                    <a href="{{ route('Auth@categoryPage') }}" class=" text-decoration-none list-group-item list-group-item-action rounded {{ "category" == request()->path() ? "active-nav" : "" }}">
-                        <li><i class="fa-solid fa-cubes-stacked me-2"></i>Category</li>
-                    </a>
-                    <a href="{{ route('Auth@postPage') }}" class=" text-decoration-none list-group-item list-group-item-action rounded {{ "post" == request()->path() ? "active-nav" : "" }}">
-                        <li><i class="fa-solid fa-pen-to-square me-2"></i>Post</li>
-                    </a>
-                    <a href="{{ route('Auth@overViewPage') }}" class=" text-decoration-none list-group-item list-group-item-action rounded {{ "overView" == request()->path() ? "active-nav" : "" }}">
-                        <li><i class="fa-solid fa-eye me-2"></i>OverViews</li>
-                    </a>
-                    <a href="{{ route('Auth@adminListPage') }}" class=" text-decoration-none list-group-item list-group-item-action rounded {{ "adminList" == request()->path() ? "active-nav" : "" }}">
-                        <li><i class="fa-solid fa-users me-2"></i>Admins</li>
-                    </a>
-                    <!-- <span class=" list-group-item list-group-item-action"> -->
-                    <form action="{{ route('logout') }}" method="post">
-                     @csrf
-                      <button class="btn btn-sm btn-primary mt-3" type="submit">Logout</button>
-                    </form>
+                 {{-- offcanvas outside --}}
+                 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false"
+                 tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                 <div class="offcanvas-header">
+                     <a href="{{ route('Auth@dashboard') }}" class=" text-decoration-none {{ "dashboard" == request()->path() ? "text-primary" : "text-dark" }}"><h5 class="offcanvas-title" id="offcanvasScrollingLabel"><i class="fa-solid fa-house me-2"></i>Tackle Shop</h5></a>
+                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                 </div>
+                 <div class="offcanvas-body border-top">
+                     <ul class=" list-unstyled list-group list-group-flush">
+                         <a href="{{ route('Auth@categoryPage') }}" class=" text-decoration-none list-group-item list-group-item-action rounded {{ "category" == request()->path() ? "text-primary" : "" }}">
+                             <li><i class="fa-solid fa-cubes-stacked me-2"></i>Category</li>
+                         </a>
+                         <a href="{{ route('Auth@postPage') }}" class=" text-decoration-none list-group-item list-group-item-action rounded {{ "post" == request()->path() ? "text-primary" : "" }}">
+                             <li><i class="fa-solid fa-pen-to-square me-2"></i>Post</li>
+                         </a>
+                         <a href="{{ route('Auth@adminListPage') }}" class=" text-decoration-none list-group-item list-group-item-action rounded {{ "adminList" == request()->path() ? "text-primary" : "" }}">
+                             <li><i class="fa-solid fa-users me-2"></i>Admins</li>
+                         </a>
+                         <a href="{{ route('overView@indexPage') }}" class=" text-decoration-none list-group-item list-group-item-action rounded {{ "overView" == request()->path() ? "text-primary" : "" }}">
+                             <li><i class="fa-solid fa-eye me-2"></i>Overview Your Items</li>
+                         </a>
+                         <form action="{{ route('logout') }}" method="post">
+                          @csrf
+                           <button class="btn btn-sm btn-primary mt-3" type="submit">Logout</button>
+                           <a href="" class=" btn btn-secondary btn-sm mt-3 float-end">Go to your Site</a>
+                         </form>    
+                     </ul>
+                 </div>
+             </div>
+             {{-- end of offcanvas outside --}}
 
-                    <!-- </span> -->
-
-                </ul>
-            </div>
-
-        </div>
-        {{-- end of offcanvas outside --}}
-            <div class="col-1">
+        <div class="row shadow-sm sticky-top bg-white d-flex align-items-center" style=" min-width: 550px;">
+            <div class="col-1 offset-1">
                 <!-- offcanvas button -->
                 <button class="btn btn-secondary btn-sm mb-2" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i
                         class="fa-solid fa-bars"></i></button>
                 <!-- end of offcanvas button -->
             </div>
-                    {{-- <!-- Search -->
-                    <div class="col-6 offset-4 d-flex align-items-center">
-                        <form action="">
-                            <div class="d-flex align-items-center justify-content-center border rounded-5 px-3" style=" padding-top: -10px; padding-bottom: -10px;">
-                                <input type="search" name="" id="search" placeholder="Search Here..."
-                                    class=" form-control me-2 shadow-none border-0" style="margin-left: -10px;">
-                                <label for="search" class="form-label mt-2"><i class="fa-solid fa-magnifying-glass fs-5 opacity-25"></i></label>
-                            </div>
-
-                        </form>
-                    </div>
-                    <!-- end of Search --> --}}
-                    <div class="col-4 offset-4   my-auto fs-4">Tackle Shop</div>
-                    <div class="col-2 offset-1  col-sm">
-                       <a href="{{ route('account@infoPage') }}">
-                         @if ( Auth::user()->image == null )
-                            <img src="{{ asset('image/defaultUser/default_user_image.jpeg') }}" alt="" style="height: 30px;" class=" rounded-5 img-thumbnail shadow-sm object-cover my-2">
-                         @else
-                             <img src="{{ asset('storage/userImage/'.Auth::user()->image) }}" alt="" style="height: 30px;" class=" rounded-5 img-thumbnail shadow-sm object-cover my-2">
-                         @endif
-                       </a>
-                    </div>
+            
+            <div class="col-4 offset-2   my-auto fs-4">Tackle Shop</div>
+            <div class="col-2 offset-2">
+                <a href="{{ route('account@infoPage') }}">
+                    @if ( Auth::user()->image == null )
+                    <img src="{{ asset('image/defaultUser/default_user_image.jpeg') }}" alt="" style="height: 30px;" class=" rounded-5 img-thumbnail shadow-sm object-cover my-2">
+                    @else
+                        <img src="{{ asset('storage/userImage/'.Auth::user()->image) }}" alt="" style="height: 30px;" class=" rounded-5 img-thumbnail shadow-sm object-cover my-2">
+                    @endif
+                </a>
+            </div>
         </div>
         @yield('content')
-    </div>
 </body>
 <!-- bootstarp -->
 <!-- JavaScript Bundle with Popper -->

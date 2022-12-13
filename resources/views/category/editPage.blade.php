@@ -1,4 +1,5 @@
 @extends('mainLayout')
+@section('title','Edit Category')
 @section('content')
             <div class="row bg-light m-1">
                 <div class="row mt-2">

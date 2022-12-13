@@ -24,9 +24,12 @@ Route::middleware(['admin_auth'])->group(function () {
     Route::get('category/edit/{id}',[CategoryController::class,'editPage'])->name('Category@editPage');
     Route::post('category/update',[CategoryController::class,'update'])->name('Category@update');
 
+    //post
+    Route::prefix('post')->group(function () {
+       Route::get('',[PostController::class,'postPage'])->name('Auth@postPage');
+       Route::post('add',[PostController::class,'add'])->name('post@add'); 
+    });
     
-    Route::get('post',[PostController::class,'postPage'])->name('Auth@postPage');
-    Route::get('overView',[OverViewController::class,'overViewPage'])->name('Auth@overViewPage');
 
     //admin Lists
     Route::get('adminList',[AdminListController::class,'adminListPage'])->name('Auth@adminListPage');
@@ -41,6 +44,12 @@ Route::middleware(['admin_auth'])->group(function () {
     Route::post('account/info/changePassword',[AccountInfoController::class,'changePassword'])->name('account@changePassword');
 
 
+    //overview
+    Route::prefix('overView')->group(function () {
+      Route::get('',[OverViewController::class,'indexPage'])->name('overView@indexPage');
+      Route::get('edit/{id}',[OverViewController::class,'editPage'])->name('overView@edit');
+      Route::post('update',[OverViewController::class,'update'])->name('overView@update');
+    });
 
 });
 

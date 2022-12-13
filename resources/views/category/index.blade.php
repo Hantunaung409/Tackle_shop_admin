@@ -1,4 +1,5 @@
 @extends('mainLayout')
+@section('title','Category')
 @section('content')
             <div class="row bg-light m-1">
                 <div class="row mt-2">
@@ -62,7 +63,7 @@
                                         <td>{{ $cat->name }}</td>
                                         <td>{{ $cat->note }}</td>
                                         <td><a href="{{ route('Category@editPage',$cat->id) }}"><i class="fa-solid fa-pencil" title="Edit"></i></a></td>
-                                        <td><i class="fa-solid fa-trash-can text-danger deleteBtn" title="Delete" style="cursor: pointer;"></i></</td>
+                                        <td><i class="fa-solid fa-trash-can text-danger deleteBtn" title="Delete" style="cursor: pointer;"></i></td>
                                     </tr>                                    
                                 @endforeach
 
