@@ -26,8 +26,8 @@ class CategoryController extends Controller
 
     // delete category using ajax 
     public function delete(Request $request){
-     
      Category::where('id', $request->categoryId)->delete();
+     Post::where('category_id',$request->categoryId)->delete();
      return redirect()->route('Auth@categoryPage')->with(['deleted' => 'A category is successfully deleted']);
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class OverViewController extends Controller
@@ -37,16 +38,38 @@ class OverViewController extends Controller
     //update edited item
     public function update(Request $request){
         $this->updateValidationCheck($request);
-        dd('success');
+        $data = [
+            'category_id' => $request->categoryId,
+            'name' => $request->name,
+            'price' => $request->price,
+            'brand' => $request->brand
+        ];
+        // for image
+        if($request->hasFile('image')){
+            $oldFileName = Post::select('image')->where('id', $request->id)->first();
+            $oldImageName = $oldFileName->image;
+            Storage::delete('public/postImage/'.$oldImageName); //doesnt need /storage
+            
+            $fileName = uniqid().$request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/postImage', $fileName);
+            $data['image'] = $fileName;
+        }
+        Post::where('id', $request->id)->update($data);
+        return redirect()->route('overView@indexPage');
+    }
+
+    //delete item
+    public function delete(Request $request){
+        Post::where('id', $request->id)->delete();
     }
 
 
     //update validation check
     private function updateValidationCheck($request){
         Validator::make($request->all(),[
-            'name' => 'required|unique:posts,name,'.$request->id,
             'price' => 'required',
-            'image' => 'required|file|mimes:png,jpg,jpeg,webp'
+            'image' => 'file|mimes:png,jpg,jpeg,webp',
+            'name' => 'required|unique:posts,name,'.$request->id
         ])->validate();
     }
 }

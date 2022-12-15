@@ -49,6 +49,7 @@ Route::middleware(['admin_auth'])->group(function () {
       Route::get('',[OverViewController::class,'indexPage'])->name('overView@indexPage');
       Route::get('edit/{id}',[OverViewController::class,'editPage'])->name('overView@edit');
       Route::post('update',[OverViewController::class,'update'])->name('overView@update');
+      Route::get('delete',[OverViewController::class,'delete'])->name('overView@delete');
     });
 
 });

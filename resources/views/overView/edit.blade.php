@@ -4,13 +4,13 @@
 <div class="row">
     <form action="{{ route('overView@update') }}" method="POST" enctype="multipart/form-data" class="col-10 offset-1 col-sm-6 offset-sm-3 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3 col-xxl-6 offset-xxl-3 shadow-lg mt-3 mt-sm-3 mt-lg-5 mt-xl-5 mt-xxl-5">
         {{-- alert --}}
-        @if (session('created'))
+        {{-- @if (session('updated'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong><i class="fa-solid fa-check"></i>{{ session('created') }}</strong>
+                <strong><i class="fa-solid fa-check"></i>{{ session('updated') }}</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                     aria-label="Close"></button>
             </div>
-        @endif
+        @endif --}}
         {{-- end alert --}}
         @csrf
             <img src="{{ asset('storage/postImage/'.$data->image) }}" alt="" class=" w-100 mt-1">
@@ -51,7 +51,8 @@
 
             <label for="brand" class=" mt-3 mb-1"><small>Brand</small></label>
             <input type="text" name="brand" id="brand" class=" form-control" value="{{ old('brand',$data->brand) }}" placeholder="Enter a Brand">
-
+             
+            <input type="hidden" name="id" value="{{ $data->id }}">
         <button type="submit" class=" btn btn-secondary float-end my-4">Add</button>
     </form> 
 </div>

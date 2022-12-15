@@ -1,6 +1,9 @@
 @extends('mainLayout')
 @section('title','Item')
 @section('content')
+   @if ($categoryData->count() == null)
+       <h1 class=" text-center text-danger mt-5">Please add a category First!</h1>
+   @else
     <div class="container-fluid">
         <div class="row">
             <form action="{{ route('post@add') }}" method="POST" enctype="multipart/form-data" class="col-6 offset-3 col-sm-6 offset-sm-3 col-md-5 offset-md-1 col-lg-5 offset-lg-1 col-xl-5 offset-xl-1 col-xxl-5 offset-xxl-1 shadow-lg mt-3 mt-sm-3 mt-lg-5 mt-xl-5 mt-xxl-5">
@@ -56,22 +59,30 @@
             
             {{-- Showing Item --}}
             <div class="col-8 offset-2 col-sm-8 offset-sm-2 col-md-4 offset-md-1 col-lg-4 offset-lg-1 col-xl-4 offset-xl-1 col-xxl-4 offset-xxl-1 mt-5 mt-sm-3 mt-lg-5 mt-xl-5 mt-xxl-5">
-                <div class="shadow-lg position-relative" style="height: 300px;">
-                    @foreach ($postData as $post)
-                        <div class=" my-auto">
-                        <img src="{{ asset('storage/postImage/'.$post->image) }}" alt="" class=" w-100" style="vertical-align: middle;">
-                        <div class=" position-absolute w-100 p-2 text-white" style="bottom: 0; background: rgb(0, 0, 0); background: rgba(0, 0, 0, 0.5);">
-                        <h3>{{ $post->name }}</h3>
-                        <h5>{{ $post->price }}-MMKS</h5>
-                        <h5>{{ $post->brand }}</h5>
-                        </div>
-                        </div>
-                    @endforeach   
-                </div>
+                @if ($postData->count() == null)
+                    
+                @else
+                    <div class="shadow-lg position-relative" style="height: 300px;">
+                            @foreach ($postData as $post)
+                                <div class=" my-auto">
+                                <img src="{{ asset('storage/postImage/'.$post->image) }}" alt="" class=" w-100" style="vertical-align: middle;">
+                                <div class=" position-absolute w-100 p-2 text-white" style="bottom: 0; background: rgb(0, 0, 0); background: rgba(0, 0, 0, 0.5);">
+                                <h3>{{ $post->name }}</h3>
+                                <h5>{{ $post->price }}-MMKS</h5>
+                                <h5>{{ $post->brand }}</h5>
+                                </div>
+                                </div>
+                            @endforeach                         
+    
+                    </div>                    
+                @endif
+
  
               <div class=" mt-3">{{ $postData->links() }}</div>
             </div>
 
         </div>
-    </div>
+    </div>   
+   @endif
+
 @endsection

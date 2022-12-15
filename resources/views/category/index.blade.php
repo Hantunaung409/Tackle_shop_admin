@@ -46,7 +46,6 @@
                             <thead>
                                 <tr>
                                     {{-- <th>Id</th> --}}
-                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Note</th>
                                     <th></th>
@@ -57,7 +56,6 @@
                                 @foreach ($category as $cat)
                                     <tr class="data">
                                         <input type="hidden" name="categoryId" value="{{ $cat->id }}" class="categoryId">
-                                        <td>{{ $cat->id }}</td>
                                         {{-- <td>{{ $loop->index + 1 }}</td> --}}
                                         {{-- <td>{{ ($cat->currentpage() - 1) * $cat->perpage() + $loop->index + 1 }}</td> although, methods of pagination are not working in FOREACH (just an idea)--}}
                                         <td>{{ $cat->name }}</td>
