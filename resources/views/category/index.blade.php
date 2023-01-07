@@ -59,6 +59,7 @@
                                         {{-- <td>{{ $loop->index + 1 }}</td> --}}
                                         {{-- <td>{{ ($cat->currentpage() - 1) * $cat->perpage() + $loop->index + 1 }}</td> although, methods of pagination are not working in FOREACH (just an idea)--}}
                                         <td>{{ $cat->name }}</td>
+                                        <input type="hidden" name="categoryName" class="categoryName" value="{{ $cat->name }}">
                                         <td>{{ $cat->note }}</td>
                                         <td><a href="{{ route('Category@editPage',$cat->id) }}"><i class="fa-solid fa-pencil" title="Edit"></i></a></td>
                                         <td><i class="fa-solid fa-trash-can text-danger deleteBtn" title="Delete" style="cursor: pointer;"></i></td>
@@ -76,17 +77,19 @@
 @section('scriptSource')
 <script>
   $(document).ready(function () {
-    $('.deleteBtn').click(function (){
+    $('.deleteBtn').click(function (){ 
        $parentNode = $(this).parents('tr');
-       $categoryId = $parentNode.find('.categoryId').val();
-       
-       $.ajax({
-        type : 'get',
-        url : '/category/ajax/delete',
-        data : { 'categoryId' : $categoryId },
-        dataType : 'json' ,
-       })
-       window.location.href = "/category";
+       $categoryId = $parentNode.find('.categoryId').val(); 
+       $categoryName = $parentNode.find('.categoryName').val();     
+        if (window.confirm(`Are You Sure? This will delete all posts under ${$categoryName}!`)) {
+            $.ajax({
+                type : 'get',
+                url : '/category/ajax/delete',
+                data : { 'categoryId' : $categoryId },
+                dataType : 'json' ,
+            })
+            window.location.href = "/category";            
+        }
     })
   })
 </script>

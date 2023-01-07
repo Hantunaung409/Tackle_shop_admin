@@ -24,6 +24,7 @@
                         @endif
                     </td>
                     <input type="hidden" name="userId" value="{{ $user->id }}" class="userId">
+                    <input type="hidden" name="userName" value="{{ $user->name }}" class="userName">
                     <td class="col">{{ $user->name }}</td>
                     <td class="col">{{ $user->email }}</td>
                     <td class="col">{{ $user->phone }}</td>
@@ -40,8 +41,10 @@
                     <a href="{{ route('account@infoPage') }}">
                         <i class="fa-solid fa-pen" title="Edit"></i> 
                     </a>   
+                    @elseif (Auth::user()->phone != '09780070062')
+
                     @else
-                      <i class="fa-solid fa-trash-can text-danger" title="Delete"></i> 
+                          <i class="fa-solid fa-trash-can text-danger" title="Delete"></i> 
                     @endif</td>
                 </tr>  
             @endforeach
@@ -57,7 +60,9 @@
            $('.fa-trash-can').click(function () {
             $parendNode = $(this).parents('tr');
             $userId = $parendNode.find('.userId').val();
+            $userName = $parendNode.find('.userName').val();
             
+            if (window.confirm(`Are you sure to delete ${$userName}?`)) {
             $.ajax({
                 type : 'get' ,
                 url : '/adminList/delete' ,
@@ -65,6 +70,7 @@
                 dataType: 'json',
             })
             window.location.href = "/adminList";
+        }
            })
 
            //approve to an admin

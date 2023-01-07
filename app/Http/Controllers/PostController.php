@@ -14,7 +14,7 @@ class PostController extends Controller
         $categoryData = Category::get();
         $postData = Post::select('posts.*','categories.name as category_name')
                           ->leftJoin('categories','categories.id','posts.category_id')
-                          ->orderBy('id','desc')->paginate(1);
+                          ->orderBy('id','desc')->simplePaginate(1);
         return view('post.index',compact('categoryData','postData'));
     }
 

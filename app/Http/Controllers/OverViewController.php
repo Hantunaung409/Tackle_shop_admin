@@ -20,7 +20,7 @@ class OverViewController extends Controller
                               ->orWhere('posts.brand','like','%'.request('searchKey').'%')
                               ->orWhere('categories.name','like','%'.request('searchKey').'%');
                           })
-                     ->paginate(4);
+                     ->paginate(15);
         $data->appends(request()->all());
         return view('overView.index',compact('data'));
     }

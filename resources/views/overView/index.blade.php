@@ -36,11 +36,18 @@
                         <img src="{{ asset('storage/postImage/'.$d->image) }}" alt="" style="height: 42px;" class=" img-thumbnail shadow-sm">
                    </td>
                    <input type="hidden" name="postId" class="postId" value="{{ $d->id }}">
-                   <td>{{ $d->id }}</td>
                    <td class="col">{{ $d->name }}</td>
                    <td class="col">{{ $d->price }}</td>
-                   <td class="col">{{ $d->category_name }}</td>
-                   <td class="col">{{ $d->brand }}</td>
+                   <td class="col" >{{ $d->category_name }}</td>
+                   <input type="hidden" name="postName" class="postName" value="{{ $d->name }}">
+                   <td class="col">
+                    @if ($d->brand == null)
+                        <span style=" opacity: 0.5;">Unknow</span> 
+                    @else
+                       {{ $d->brand }}                        
+                    @endif
+
+                   </td>
                    <td class="col"><a href="{{ route('overView@edit',$d->id) }}"><i class="fa-solid fa-pen" title="Edit"></i> </a></td>
                    <td class=" col"><i class="fa-solid fa-trash-can text-danger" title="Delete"></i> </td>                   
                </tr>  
@@ -58,7 +65,8 @@
             $('.fa-trash-can').click(function () {
                 $parentNode = $(this).parents('tr');
                 $id = $parentNode.find('.postId').val();
-                 
+                $postName = $parentNode.find('.postName').val();
+                if (window.confirm(`Are you sure to delete ${$postName}?`)) {
                 $.ajax({
                     type : 'get' ,
                     url : '/overView/delete' ,
@@ -66,6 +74,7 @@
                     dataType: 'json',
                 })
                 window.location.href = "/overView";
+            }
             })
         })
     </script>

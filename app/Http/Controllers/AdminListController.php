@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminListController extends Controller
 {
@@ -15,6 +16,10 @@ class AdminListController extends Controller
 
     //delete an admin from list
     public function delete(Request $request){
+       $userImage = User::select('image')->where('id',$request->userId)->first();
+       if($userImage != null){
+        Storage::delete('public/userImage/'.$userImage->image);
+       }
        User::where('id', $request->userId)->delete();
     }
 

@@ -62,10 +62,10 @@
                 @if ($postData->count() == null)
                     
                 @else
-                    <div class="shadow-lg position-relative" style="height: 300px;">
+                    <div class="shadow-lg position-relative" style=" h-100">
                             @foreach ($postData as $post)
                                 <div class=" my-auto">
-                                <img src="{{ asset('storage/postImage/'.$post->image) }}" alt="" class=" w-100" style="vertical-align: middle;">
+                                <img src="{{ asset('storage/postImage/'.$post->image) }}" alt="" class=" w-100" style="vertical-align: middle; heihgt: 100%;">
                                 <div class=" position-absolute w-100 p-2 text-white" style="bottom: 0; background: rgb(0, 0, 0); background: rgba(0, 0, 0, 0.5);">
                                 <h3>{{ $post->name }}</h3>
                                 <h5>{{ $post->price }}-MMKS</h5>
@@ -77,8 +77,9 @@
                     </div>                    
                 @endif
 
- 
-              <div class=" mt-3">{{ $postData->links() }}</div>
+              <div class=" mt-3">
+                 {{ $postData->links() }}                    
+              </div>
             </div>
 
         </div>
