@@ -2,7 +2,7 @@
 @section('title','Change Your Password')
 @section('content')
 <div class="container-fluid">
-    <div class="card mt-3 mx-5">
+    <div class="card mt-3 mx-0 mx-sm-0 mx-md-5 mx-lg-5 mx-xl-5 mx-xxl-5">
         <div class="card-title">
           <span class="d-flex justify-content-center mt-2">Change Your Password</span> 
           {{-- alert --}}

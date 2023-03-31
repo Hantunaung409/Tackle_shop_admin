@@ -10,7 +10,7 @@ use App\Http\Controllers\AccountInfoController;
 
 // will not allowed if user-role-user or already authenticated user request to those routes
 Route::middleware(['admin_auth'])->group(function () {
- Route::redirect('/','loginPage');
+ Route::get('/',[AdminAuthController::class,'loginPage']);
  Route::get('loginPage',[AdminAuthController::class,'loginPage'])->name('adminAuth@loginPage');
  Route::get('registerPage',[AdminAuthController::class,'registerPage'])->name('adminAuth@registerPage');
 
@@ -50,6 +50,8 @@ Route::middleware(['admin_auth'])->group(function () {
       Route::get('edit/{id}',[OverViewController::class,'editPage'])->name('overView@edit');
       Route::post('update',[OverViewController::class,'update'])->name('overView@update');
       Route::get('delete',[OverViewController::class,'delete'])->name('overView@delete');
+      Route::get('more/{id}',[OverViewController::class,'more'])->name('overView@more');
+      Route::get('outOfStock',[OverViewController::class,'outOfStock'])->name('overView@outOfStock');
     });
 
 });

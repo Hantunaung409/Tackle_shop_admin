@@ -14,7 +14,7 @@ class PostController extends Controller
         $categoryData = Category::get();
         $postData = Post::select('posts.*','categories.name as category_name')
                           ->leftJoin('categories','categories.id','posts.category_id')
-                          ->orderBy('id','desc')->paginate(1);
+                          ->orderBy('id','desc')->simplePaginate(1);
         return view('post.index',compact('categoryData','postData'));
     }
 
@@ -23,12 +23,30 @@ class PostController extends Controller
         $this->addPostValidationCheck($request);
         $fileName = uniqid().$request->file('image')->getClientOriginalName();
         $request->file('image')->storeAs('public/postImage', $fileName);
+        
+        $secFileName = null;
+        if($request->hasFile('image2')){
+            $secFileName = uniqid().$request->file('image2')->getClientOriginalName();
+            $request->file('image2')->storeAs('public/secImage', $secFileName);
+        }
+        
+        $thirdFileName = null;
+        if($request->hasFile('image3')){
+            $thirdFileName = uniqid().$request->file('image3')->getClientOriginalName();
+            $request->file('image3')->storeAs('public/thirdImage', $thirdFileName);
+        }
+
         $data = [
             'category_id' => $request->categoryId ,
             'name' => $request->name ,
             'price' => $request->price ,
             'brand' => $request->brand ,
-            'image' => $fileName
+            'image' => $fileName,
+            'count' => $request->count,
+            'details' => $request->details,
+            'image2' => $secFileName,
+            'image3' => $thirdFileName,
+            'currency' => $request->currency
         ];
         Post::create($data);
         return redirect()->route('Auth@postPage')->with(['created' => 'An item was created successfully!']);
@@ -39,7 +57,8 @@ class PostController extends Controller
         Validator::make($request->all(),[
           'name' => 'required|unique:posts,name',
           'price' => 'required',
-          'image' => 'required|file|mimes:png,jpg,jpeg,webp'
+          'image' => 'required|file|mimes:png,jpg,jpeg,webp',
+          'count' => 'required'
         ])->validate();
     }
 }

@@ -41,24 +41,24 @@
                          <form action="{{ route('logout') }}" method="post">
                           @csrf
                            <button class="btn btn-sm btn-primary mt-3" type="submit">Logout</button>
-                           <a href="" class=" btn btn-secondary btn-sm mt-3 float-end">Go to your Site</a>
+                           <a href="https://ngakalay.tackle-mm.com/" target="_blank" class=" btn btn-secondary btn-sm mt-3 float-end">Go to your Site</a>
                          </form>    
                      </ul>
                  </div>
              </div>
              {{-- end of offcanvas outside --}}
 
-        <div class="row shadow-sm sticky-top bg-white d-flex align-items-center" style=" min-width: 550px;">
-            <div class="col-1 offset-1">
+        <div class="row shadow-sm sticky-top bg-white d-flex align-items-center" style="min-width: 420px; ">
+            <div class="col-1 offset-0 col-sm-1 offset-sm-1 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">
                 <!-- offcanvas button -->
-                <button class="btn btn-secondary btn-sm mb-2" type="button" data-bs-toggle="offcanvas"
+                <button class="btn btn-secondary btn-sm mb-2 ms-1" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i
                         class="fa-solid fa-bars"></i></button>
                 <!-- end of offcanvas button -->
             </div>
             
-            <div class="col-4 offset-2   my-auto fs-4">Tackle Shop</div>
-            <div class="col-2 offset-2">
+            <div class="col-6 offset-3 col-sm-4 offset-sm-3 col-md-4 offset-md-3 col-lg-4 offset-lg-3 col-xl-4 offset-xl-3 col-xxl-4 offset-xxl-3 my-auto fs-4 text-danger fw-bolder">Tackle Shop</div>
+            <div class="col-2 offset-0  col-sm-2 offset-sm-1 col-md-2 offset-md-1 col-lg-2 offset-lg-1 col-xl-2 offset-xl-1 col-xxl-2 offset-xxl-1">
                 <a href="{{ route('account@infoPage') }}">
                     @if ( Auth::user()->image == null )
                     <img src="{{ asset('image/defaultUser/default_user_image.jpeg') }}" alt="" style="height: 30px;" class=" rounded-5 img-thumbnail shadow-sm object-cover my-2">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -27,6 +28,10 @@ class CategoryController extends Controller
     // delete category using ajax 
     public function delete(Request $request){
      Category::where('id', $request->categoryId)->delete();
+     $imageName = Post::select('image')->where('category_id',$request->categoryId)->get();
+     foreach ($imageName as $name) {
+      Storage::delete('public/postImage/'.$name->image); 
+     }
      Post::where('category_id',$request->categoryId)->delete();
      return redirect()->route('Auth@categoryPage')->with(['deleted' => 'A category is successfully deleted']);
     }
@@ -51,7 +56,7 @@ class CategoryController extends Controller
     //creation validation check
     private function creationValidationCheck($request){
         Validator::make($request->all(),[
-            'categoryName' => 'required|unique:categories,name'
+            'categoryName' => 'required|unique:categories,name,'.$request->categoryId
         ])->validate();
     }
 }

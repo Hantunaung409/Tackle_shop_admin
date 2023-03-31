@@ -3,7 +3,7 @@
 @section('content')
             <div class="row bg-light m-1">
                 <div class="row mt-2">
-                    <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                    <div class="col-12 col-sm-4 offset-sm-none col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                         <!-- add new category Card -->
                         <div class="card shadow-sm bg-white text-center">
                             <div class="card-title mt-2">Add A New Category</div>
@@ -26,13 +26,11 @@
                     <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 ps-5 mt-5 mt-sm-0 mt-lg-0 mt-xl-0 mt-xxl-0">
                         {{-- alert --}}
                         @if (session('deleted'))
-                        {{-- <div class="col-6 offset-6"> --}}
                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                 <strong><i class="fa-solid fa-trash"></i>{{ session('deleted') }}</strong>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                        {{-- </div> --}}
                         @endif
                         @if (session('updated'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -56,6 +54,7 @@
                                 @foreach ($category as $cat)
                                     <tr class="data">
                                         <input type="hidden" name="categoryId" value="{{ $cat->id }}" class="categoryId">
+                                        <input type="hidden" name="categoryName" class="categoryName" value="{{ $cat->name }}">
                                         {{-- <td>{{ $loop->index + 1 }}</td> --}}
                                         {{-- <td>{{ ($cat->currentpage() - 1) * $cat->perpage() + $loop->index + 1 }}</td> although, methods of pagination are not working in FOREACH (just an idea)--}}
                                         <td>{{ $cat->name }}</td>
@@ -76,17 +75,19 @@
 @section('scriptSource')
 <script>
   $(document).ready(function () {
-    $('.deleteBtn').click(function (){
+    $('.deleteBtn').click(function (){ 
        $parentNode = $(this).parents('tr');
-       $categoryId = $parentNode.find('.categoryId').val();
-       
-       $.ajax({
-        type : 'get',
-        url : '/category/ajax/delete',
-        data : { 'categoryId' : $categoryId },
-        dataType : 'json' ,
-       })
-       window.location.href = "/category";
+       $categoryId = $parentNode.find('.categoryId').val();      
+       $categoryName = $parentNode.find('.categoryName').val();     
+        if (window.confirm(`Are You Sure? This will delete all posts under ${$categoryName} too!`)) {
+            $.ajax({
+                type : 'get',
+                url : '/category/ajax/delete',
+                data : { 'categoryId' : $categoryId },
+                dataType : 'json' ,
+            })
+            window.location.href = "/category";            
+        }
     })
   })
 </script>

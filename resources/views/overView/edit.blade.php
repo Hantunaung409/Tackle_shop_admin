@@ -49,11 +49,53 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
 
+            <label for="count" class=" mt-3 mb-1"><small><span class="text-danger">*</span>Count</small></label>
+            <input type="number" name="count" id="count" placeholder=" Enter item count" value="{{ old('count',$data->count) }}" class=" form-control @error('count')
+                is-invalid
+            @enderror">
+            @error('count')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+
+            <label for="currency" class=" mt-3 mb-1"><small><span class="text-danger">*</span>Currency</small></label>
+            <select name="currency" id="currency" class=" form-select">
+                     <option value="thai"
+                     @if ($data->currency == 'thai')
+                         selected
+                     @endif
+                     >Thailand</option>
+                     <option value="china"
+                     @if ($data->currency == 'china')
+                         selected
+                     @endif
+                     >china</option>
+                     <option value="us"
+                     @if ($data->currency == 'us')
+                         selected
+                     @endif
+                     >US Dollar</option>
+            </select>
+
+            <label for="details" class=" mt-3 mb-1"><small>Details</small></label>
+            <textarea name="details" id="details" cols="30" class="form-control" rows="5">{{ old('details',$data->details) }}</textarea>
+
             <label for="brand" class=" mt-3 mb-1"><small>Brand</small></label>
             <input type="text" name="brand" id="brand" class=" form-control" value="{{ old('brand',$data->brand) }}" placeholder="Enter a Brand">
              
+            @if ($data->image2)
+                <img src="{{ asset('storage/secImage/'.$data->image2) }}" alt="" class=" w-100 mt-1">   
+            @endif
+            <label for="image2" class=" mb-1 mt-3"><small>Choose Second Image</small></label>
+            <input type="file" name="image2" id="image2" class="form-control">
+
+            @if ($data->image3)
+            <img src="{{ asset('storage/thirdImage/'.$data->image3) }}" alt="" class=" w-100 mt-1">   
+            @endif
+            <label for="image3" class=" mb-1 mt-3"><small>Choose Third Image</small></label>
+            <input type="file" name="image3" id="image3" class="form-control">
+
             <input type="hidden" name="id" value="{{ $data->id }}">
-        <button type="submit" class=" btn btn-secondary float-end my-4">Add</button>
+        <button type="submit" class=" btn btn-secondary float-end my-4">Update</button>
     </form> 
 </div>
 
